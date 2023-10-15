@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.imageRegistry }}/{{ .Values.name }}:{{ .Values.moduleVersion.jdk17test }}
+          ports:
+            - name: "{{ .Values.name }}-port"
+              containerPort: 8080
+          volumeMounts:
+            - name: "{{ .Values.name }}-vol"
+              mountPath: /data
+      volumes:
+        - name: "{{ .Values.name }}-vol"
+          hostPath:
+            path: "/data/{{ .Values.name }}"
+            type: DirectoryOrCreate
