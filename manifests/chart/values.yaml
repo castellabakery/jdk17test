@@ -1,6 +1,6 @@
 name: jdk17test
 namespace: jdk17test
-imageRegistry: localhost:32500
+imageRegistry: registry.pastelcloud.store
 moduleVersion:
  jdk17test: 0.0.2
 subDomain: "jdk17test"
